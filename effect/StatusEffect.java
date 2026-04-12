@@ -6,6 +6,7 @@ public abstract class StatusEffect {
 
     public StatusEffect(int duration) {
         this.duration = duration;
+        this.turnsRemaining = duration;
     }
 
     public void tick() {
@@ -13,7 +14,7 @@ public abstract class StatusEffect {
     }
 
     public boolean isExpired() {
-        return turnsRemaining > 0;
+        return turnsRemaining == 0;
     }
 
     public boolean isInvulnerable() {

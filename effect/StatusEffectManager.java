@@ -34,7 +34,7 @@ public class StatusEffectManager {
         return activeEffects.stream().mapToInt(StatusEffect::getDefenseBonus).sum();
     }
 
-    public void tick() {
+    public void tickAll() {
         activeEffects.forEach(StatusEffect::tick);
         cleanExpired();
     }

@@ -18,4 +18,9 @@ public class ArcaneBlastBuff extends StatusEffect {
     public int getAttackBonus() {
         return attackBonus;
     }
+
+    @Override
+    public boolean isExpired() {
+        return false; // This buff never expires on its own
+    }
 }
