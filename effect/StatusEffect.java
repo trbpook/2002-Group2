@@ -24,9 +24,14 @@ public abstract class StatusEffect {
         return false;
     }
 
+    public int getAttackBonus() {
+        return 0;
+    }
+
+    public int getDefenseBonus() {
+        return 0;
+    }
+
     public abstract String getName();
 
-    public abstract int getAttackBonus();
-
-    public abstract int getDefenseBonus();
 }
