@@ -1,6 +1,7 @@
 package model;
 
-import action.*;
+import action.SpecialSkill;
+import action.ShieldBash;
 
 public class Warrior extends Player {
     public Warrior() {
@@ -8,7 +9,7 @@ public class Warrior extends Player {
     }
 
     @Override
-    public SpecialSkill createSpecialSkill() {
-        return null;
+    public SpecialSkill createSpecialSkill(boolean resetCD) {
+        return new ShieldBash(this, resetCD);
     }
 }

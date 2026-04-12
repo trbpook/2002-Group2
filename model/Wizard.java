@@ -1,13 +1,14 @@
 package model;
 
-import action.*;
+import action.SpecialSkill;
+import action.ArcaneBlast;
 
 public class Wizard extends Player {
-    Wizard() {
+    public Wizard() {
         super(200, 50, 10, 20);
     }
 
-    public SpecialSkill createSpecialSkill() {
-        return null;
+    public SpecialSkill createSpecialSkill(boolean resetCD) {
+        return new ArcaneBlast(this, resetCD);
     }
 }

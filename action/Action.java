@@ -8,23 +8,27 @@ public abstract class Action {
     protected List<Combatant> targets;
     TargetMode targetStatus;
 
+    protected static List<Combatant> wrapTarget(Combatant target) {
+        return target != null ? List.of(target) : null;
+    }
+
     public Action(Combatant actor, List<Combatant> targets) {
         this.actor = actor;
         this.targets = targets;
-        targetStatus = TargetMode.TARGET_RESOLVED;
+        if (this.targets == null || this.targets.isEmpty()) {
+            this.targets = List.of();
+            targetStatus = getDefaultTargetMode();
+        } else {
+            targetStatus = TargetMode.TARGET_RESOLVED;
+        }
     }
 
     public Action(Combatant actor, Combatant target) {
-        this.actor = actor;
-        this.targets = List.of(target);
-        targetStatus = TargetMode.TARGET_RESOLVED;
+        this(actor, wrapTarget(target));
     }
 
     public Action(Combatant actor) {
-        this.actor = actor;
-        this.targets = List.of();
-
-        targetStatus = getDefaultTargetMode();
+        this(actor, (Combatant) null);
     }
 
     public void setTargets(List<Combatant> targets) {

@@ -19,7 +19,7 @@ public abstract class Player extends Combatant {
     //     return inventory; // Placeholder for future inventory system
     // }
 
-    public abstract SpecialSkill createSpecialSkill();
+    public abstract SpecialSkill createSpecialSkill(boolean resetCD);
 
 
     
