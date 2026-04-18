@@ -45,6 +45,24 @@ public enum Level {
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 
+    public String getEnemyPoolSummary() {
+        String initial = describeSpawn(initialSpawn);
+        if (backupSpawn.length == 0) {
+            return "Initial: " + initial + " | No backup";
+        }
+        return "Initial: " + initial + " | Backup: " + describeSpawn(backupSpawn);
+    }
+
+    private static String describeSpawn(EnemyType[] spawn) {
+        Map<EnemyType, Integer> counts = new EnumMap<>(EnemyType.class);
+        for (EnemyType t : spawn) counts.merge(t, 1, Integer::sum);
+        List<String> parts = new ArrayList<>();
+        for (Map.Entry<EnemyType, Integer> e : counts.entrySet()) {
+            parts.add(e.getValue() + " " + e.getKey().getDisplayName() + (e.getValue() > 1 ? "s" : ""));
+        }
+        return String.join(" + ", parts);
+    }
+
     private List<Enemy> createEnemies(EnemyType[] enemyTypes) {
         Map<EnemyType, Integer> totals = new EnumMap<>(EnemyType.class);
         Map<EnemyType, Integer> seen = new EnumMap<>(EnemyType.class);
