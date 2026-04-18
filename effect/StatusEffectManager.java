@@ -1,10 +1,10 @@
 package effect;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StatusEffectManager {
-    private List<StatusEffect> activeEffects;
+    private final List<StatusEffect> activeEffects;
 
     public StatusEffectManager() {
         activeEffects = new ArrayList<>();
@@ -32,6 +32,14 @@ public class StatusEffectManager {
 
     public int getTotalDefenseBonus() {
         return activeEffects.stream().mapToInt(StatusEffect::getDefenseBonus).sum();
+    }
+
+    public List<String> getActiveEffectNames() {
+        return activeEffects.stream().map(StatusEffect::getName).toList();
+    }
+
+    public void tick() {
+        tickAll();
     }
 
     public void tickAll() {

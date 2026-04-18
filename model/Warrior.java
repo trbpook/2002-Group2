@@ -5,7 +5,7 @@ import action.ShieldBash;
 
 public class Warrior extends Player {
     public Warrior() {
-        super(260, 40, 20, 30);
+        super("Warrior", 260, 40, 20, 30);
     }
 
     @Override

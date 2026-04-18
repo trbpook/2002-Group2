@@ -1,3 +1,8 @@
 *.class
+build-check/
+build-tests/
+.project
+.classpath
+.settings/
+tests/
 testsupport/
-tests

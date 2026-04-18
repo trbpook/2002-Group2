@@ -1,16 +1,26 @@
 package model;
 
-import action.*;
+import action.Action;
+import action.BasicAttack;
+import action.Defend;
+import action.SpecialSkill;
+import java.util.ArrayList;
+import java.util.List;
 import item.Inventory;
+import item.Item;
 
 public abstract class Player extends Combatant {
-    private Cooldown skillCD;
-    private Inventory inventory;
+    private final Cooldown skillCD;
+    private final Inventory inventory;
+
+    public Player(String name, int maxHp, int attack, int defense, int speed) {
+        super(name, maxHp, attack, defense, speed);
+        skillCD = new Cooldown(3);
+        inventory = new Inventory();
+    }
 
     public Player(int maxHp, int attack, int defense, int speed) {
-        super(maxHp, attack, defense, speed);
-        skillCD = new Cooldown(3); // Example cooldown duration for a special skill
-        inventory = new Inventory();
+        this("Player", maxHp, attack, defense, speed);
     }
 
     public Cooldown getSkillCD() {
@@ -23,6 +33,25 @@ public abstract class Player extends Combatant {
 
     public abstract SpecialSkill createSpecialSkill(boolean resetCD);
 
+    public List<Action> getAvailableActions() {
+        List<Action> availableActions = new ArrayList<>();
+        availableActions.add(new BasicAttack());
+        availableActions.add(new Defend());
 
-    
+        if (canUseSpecialSkillThisTurn()) {
+            availableActions.add(createSpecialSkill(true));
+        }
+
+        for (Item item : inventory.getItems()) {
+            if (item instanceof Action action) {
+                availableActions.add(action);
+            }
+        }
+
+        return availableActions;
+    }
+
+    public boolean canUseSpecialSkillThisTurn() {
+        return skillCD.isReady();
+    }
 }

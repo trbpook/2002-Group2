@@ -5,18 +5,26 @@ import strategy.BasicAttackStrategy;
 import strategy.EnemyActionStrategy;
 
 public class Enemy extends Combatant {
-    EnemyActionStrategy strategy;
+    private final EnemyActionStrategy strategy;
+
+    public Enemy(String name, int maxHp, int attack, int defense, int speed, EnemyActionStrategy strategy) {
+        super(name, maxHp, attack, defense, speed);
+        this.strategy = strategy;
+    }
 
     public Enemy(int maxHp, int attack, int defense, int speed, EnemyActionStrategy strategy) {
-        super(maxHp, attack, defense, speed);
-        this.strategy = strategy;
+        this("Enemy", maxHp, attack, defense, speed, strategy);
+    }
+
+    public Enemy(String name, int maxHp, int attack, int defense, int speed) {
+        this(name, maxHp, attack, defense, speed, new BasicAttackStrategy());
     }
 
     public Enemy(int maxHp, int attack, int defense, int speed) {
         this(maxHp, attack, defense, speed, new BasicAttackStrategy());
     }
 
-    Action chooseAction(Combatant player) {
+    public Action chooseAction(Combatant player) {
         return strategy.chooseAction(this, player);
     }
 }

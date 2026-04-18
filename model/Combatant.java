@@ -3,6 +3,7 @@ package model;
 import effect.StatusEffectManager;
 
 public class Combatant {
+    protected String name;
     protected int maxHp;
     protected int hp;
     protected int attack;
@@ -11,7 +12,8 @@ public class Combatant {
 
     StatusEffectManager effects;
 
-    public Combatant(int maxHp, int attack, int defense, int speed) {
+    public Combatant(String name, int maxHp, int attack, int defense, int speed) {
+        this.name = name;
         this.maxHp = maxHp;
         this.hp = maxHp;
         this.attack = attack;
@@ -19,8 +21,13 @@ public class Combatant {
         this.speed = speed;
         this.effects = new StatusEffectManager();
     }
-    
+
+    public Combatant(int maxHp, int attack, int defense, int speed) {
+        this("Combatant", maxHp, attack, defense, speed);
+    }
+
     public Combatant() {
+        this.name = "Combatant";
         this.effects = new StatusEffectManager();
     }
 
@@ -78,5 +85,9 @@ public class Combatant {
 
     public int getMaxHp() {
         return maxHp;
+    }
+
+    public String getName() {
+        return name;
     }
 }
