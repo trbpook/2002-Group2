@@ -130,6 +130,7 @@ public final class ConsoleGameUI implements GameUI {
     @Override
     public void displayBackupSpawn(List<Enemy> backupEnemies) {
         out.println();
+        out.println("==========[ Wave 2 ]==========");
         out.println("Backup enemies have arrived: " + backupEnemies.stream().map(Enemy::getName).toList());
     }
 
@@ -147,16 +148,22 @@ public final class ConsoleGameUI implements GameUI {
     @Override
     public void displayVictory(Player player, int rounds) {
         out.println();
-        out.println("Victory in " + rounds + " round(s). " + player.getName() + " survives with " + player.getHp() + " HP.");
+        out.println("Congratulations, you have defeated all your enemies.");
+        out.println("Statistics: Remaining HP: " + player.getHp() + "/" + player.getMaxHp()
+            + " | Total Rounds: " + rounds);
+        List<String> remainingItems = player.getInventory().getItems().stream()
+            .map(item -> item.getName())
+            .toList();
+        out.println("Remaining Items: " + (remainingItems.isEmpty() ? "None" : String.join(", ", remainingItems)));
     }
 
     @Override
     public void displayDefeat(List<Enemy> enemies, int rounds) {
         out.println();
-        out.println("Defeat after " + rounds + " round(s). Remaining enemies: " + enemies.stream()
-            .filter(Enemy::isAlive)
-            .map(Enemy::getName)
-            .toList());
+        out.println("Defeated. Don't give up, try again!");
+        long enemiesRemaining = enemies.stream().filter(Enemy::isAlive).count();
+        out.println("Statistics: Enemies remaining: " + enemiesRemaining
+            + " | Total Rounds Survived: " + rounds);
     }
 
     private PlayerClassOption promptPlayerClassSelection() {

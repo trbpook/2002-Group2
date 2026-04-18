@@ -23,19 +23,13 @@ public class ArcaneBlast extends SpecialSkill {
 
     @Override
     public void execute(Combatant actor, List<Combatant> targets) {
-        int defeatedTargets = 0;
-
         for (Combatant target : targets) {
             boolean wasAlive = target.isAlive();
             int damage = DamageCalculator.calculate(actor, target);
             target.takeDamage(damage);
             if (wasAlive && !target.isAlive()) {
-                defeatedTargets++;
+                actor.getEffects().addEffect(new ArcaneBlastBuff(10));
             }
-        }
-
-        if (defeatedTargets > 0) {
-            actor.getEffects().addEffect(new ArcaneBlastBuff(defeatedTargets * 10));
         }
 
         applyCooldown(actor);
