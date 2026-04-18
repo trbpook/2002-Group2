@@ -31,32 +31,6 @@ The current codebase is structured around a clear split between:
   - playing the battle
   - replaying with the same setup, starting a new game, or exiting
 
-## Assignment Context
-
-The project is based on the SC2002 turn-based combat assignment, so the game is centered around a single-player battle against enemy waves with class-specific skills and limited-use items.
-
-The main assignment-facing ideas reflected in this repository are:
-- separation of UI from battle logic
-- reusable object-oriented domain classes
-- turn-based combat with status effects and cooldowns
-- multiple difficulty levels with different enemy compositions
-- test coverage for both isolated logic and full battle flow
-
-## Important Repo Note
-
-This repository currently uses one intentional gameplay rule that differs from the assignment examples:
-
-- Special skill cooldown advances on every player turn, unconditionally.
-
-That means cooldown still ticks:
-- on a normal attack turn
-- on a defend turn
-- on an item turn
-- on a `Power Stone` turn
-- on a skipped or stunned player turn
-- on a real special skill turn after the skill resets cooldown
-
-So in this repo, `Power Stone` still gives a free special-skill effect, but the turn itself still advances cooldown like any other player turn.
 
 ## Project Structure
 
@@ -92,43 +66,9 @@ javac -d build (Get-ChildItem action,effect,engine,item,model,strategy,ui,util -
 java -cp build ui.Main
 ```
 
-## Running The Tests
-
-The project uses a plain Java test harness under `tests/` and `testsupport/`.
-
-From the repository root in PowerShell:
-
-```powershell
-if (Test-Path build-tests) {
-    Get-ChildItem -LiteralPath build-tests -Recurse -Force | ForEach-Object { $_.Attributes = 'Normal' }
-    (Get-Item -LiteralPath build-tests).Attributes = 'Normal'
-    Remove-Item -Recurse -Force -LiteralPath build-tests
-}
-New-Item -ItemType Directory -Force -Path build-tests | Out-Null
-javac -d build-tests (Get-ChildItem action,effect,item,model,strategy,engine,ui,util,tests,testsupport -Recurse -Filter *.java | ForEach-Object FullName)
-java -cp build-tests tests.TestMain
-```
-
-The current suite covers:
-- cooldown behavior
-- action and item behavior
-- inventory and status effect management
-- player and strategy wiring
-- level construction
-- battle engine integration flow
-- console UI setup and prompt handling
-
-## Main Entry Points
-
-- Play the game: `ui.Main`
-- Run the test suite: `tests.TestMain`
-
 ## Current Status
 
 At the current stage, the repository includes:
 - a working battle engine
 - a working console UI
 - replay and new-game flow
-- plain Java automated tests across the main gameplay layers
-
-What is still typically left for assignment submission work is non-code deliverables such as UML diagrams, sequence diagrams, and the final report/documentation package if those are required by your submission format.
