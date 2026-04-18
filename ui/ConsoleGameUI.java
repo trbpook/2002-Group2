@@ -196,10 +196,14 @@ public final class ConsoleGameUI implements GameUI {
     }
 
     private Level promptLevelSelection() {
-        List<String> options = new ArrayList<>();
+        out.println();
+        out.println("--- Enemy Reference ---");
+        out.println("Goblin | HP: 55, ATK: 35, DEF: 15, SPD: 25");
+        out.println("Wolf   | HP: 40, ATK: 45, DEF:  5, SPD: 35");
 
+        List<String> options = new ArrayList<>();
         for (Level level : Level.values()) {
-            options.add(level.getDisplayName());
+            options.add(level.getDisplayName() + " | " + level.getEnemyPoolSummary());
         }
 
         int index = promptMenuChoice("Choose Difficulty", options);
