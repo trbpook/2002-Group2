@@ -22,7 +22,7 @@ public final class PowerStone implements Item, Action {
  
     @Override
     public String getDescription() {
-        return "Trigger your special skill once for free. Cooldown is not affected.";
+        return "Trigger your special skill once for free. Your turn still advances cooldown normally.";
     }
  
     @Override
