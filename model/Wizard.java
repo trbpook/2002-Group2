@@ -9,6 +9,6 @@ public class Wizard extends Player {
     }
 
     public SpecialSkill createSpecialSkill(boolean resetCD) {
-        return new ArcaneBlast(this, resetCD);
+        return new ArcaneBlast(resetCD);
     }
 }

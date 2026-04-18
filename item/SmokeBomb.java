@@ -29,8 +29,8 @@ public final class SmokeBomb implements Item, Action {
  
     @Override
     public void execute(Combatant actor, List<Combatant> targets) {
-        targets.get(0).getEffects().addEffect(new SmokeBombInvulnerability(DURATION));
- 
+        targets.get(0).getEffects().addEffect(new SmokeBombInvulnerability());
+
         if (actor instanceof Player player) {
             player.getInventory().removeItem(this);
         }

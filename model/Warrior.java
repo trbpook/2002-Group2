@@ -10,6 +10,6 @@ public class Warrior extends Player {
 
     @Override
     public SpecialSkill createSpecialSkill(boolean resetCD) {
-        return new ShieldBash(this, resetCD);
+        return new ShieldBash(resetCD);
     }
 }

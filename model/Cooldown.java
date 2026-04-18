@@ -22,4 +22,8 @@ public class Cooldown {
     public boolean isReady() {
         return remaining == 0;
     }
+
+    public int getRemaining() {
+        return remaining;
+    }
 }
