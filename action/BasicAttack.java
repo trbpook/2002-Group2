@@ -1,26 +1,27 @@
 package action;
 
+import java.util.List;
+
 import model.Combatant;
 import util.DamageCalculator;
 
-public class BasicAttack extends Action {
-    public BasicAttack(Combatant actor, Combatant target) {
-        super(actor, target);
-    }
+public class BasicAttack implements Action {
 
-    public BasicAttack(Combatant actor) {
-        super(actor);
+    @Override
+    public String getLabel() {
+        return "Basic Attack";
     }
 
     @Override
-    public TargetMode getDefaultTargetMode() {
-        return TargetMode.SELECT_SINGLE_OPPONENT;
+    public TargetMode getTargetMode(Combatant actor) {
+        return TargetMode.SINGLE_OPPONENT;
     }
 
     @Override
-    public void executeSingle(Combatant target) {
-        int damage = DamageCalculator.calculateDamage(actor, target);
-        target.takeDamage(damage);
+    public void execute(Combatant actor, List<Combatant> targets) {
+        for (Combatant target : targets) {
+            int damage = DamageCalculator.calculate(actor, target);
+            target.takeDamage(damage);
+        }
     }
-    
 }

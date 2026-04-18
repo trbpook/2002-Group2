@@ -1,27 +1,24 @@
 package action;
 
-import model.Combatant;
+import java.util.List;
+
 import effect.DefendEffect;
+import model.Combatant;
 
-public class Defend extends Action {
+public class Defend implements Action {
 
-    public Defend(Combatant actor) {
-        super(actor, actor);
-    }
-
-    public Defend(Combatant actor, Combatant target) {
-        super(actor, target);
-    }
-
-    public void executeSingle(Combatant target) {
-        target.getEffects().addEffect(new DefendEffect());
-    }
-
-    public String getName() {
+    @Override
+    public String getLabel() {
         return "Defend";
     }
 
-    public TargetMode getDefaultTargetMode() {
+    @Override
+    public TargetMode getTargetMode(Combatant actor) {
         return TargetMode.SELF;
+    }
+
+    @Override
+    public void execute(Combatant actor, List<Combatant> targets) {
+        actor.getEffects().addEffect(new DefendEffect());
     }
 }
