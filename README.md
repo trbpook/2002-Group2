@@ -53,9 +53,12 @@ This project does not use Maven or Gradle. It can be compiled and run directly w
 
 Recommended: use Java 17 or newer.
 
-From the repository root in PowerShell:
+From the repository root:
 
-```powershell
+
+### Windows (PowerShell)
+
+```
 if (Test-Path build) {
     Get-ChildItem -LiteralPath build -Recurse -Force | ForEach-Object { $_.Attributes = 'Normal' }
     (Get-Item -LiteralPath build).Attributes = 'Normal'
@@ -63,6 +66,15 @@ if (Test-Path build) {
 }
 New-Item -ItemType Directory -Force -Path build | Out-Null
 javac -d build (Get-ChildItem action,effect,engine,item,model,strategy,ui,util -Recurse -Filter *.java | ForEach-Object FullName)
+java -cp build ui.Main
+```
+
+### macOS / Linux (bash or zsh)
+
+```bash
+rm -rf build
+mkdir build
+javac -d build $(find action effect engine item model strategy ui util -name "*.java")
 java -cp build ui.Main
 ```
 
